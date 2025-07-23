@@ -1,190 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cloud Technet </title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                text-align: center;
-                background-color: #ffffff;
-                padding: 20px;
-            }
-            img.logo {
-                width: 200px;
-                margin-top: -60px;
-                margin-bottom: -60px;
-            }
-            h1 {
-                color: #1a53ff;
-            }
-            .container {
-                max-width: 600px;
-                margin: auto;
-                border: 1px solid #ddd;
-                padding: 20px;
-                border-radius: 10px;
-            }
-            .label {
-                font-weight: bold;
-                margin-top: 15px;
-            }
-            .value {
-                background-color: #eef4ff;
-                padding: 10px;
-                border-radius: 5px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 10px;
-            }
-            .copy-btn {
-                background-color: #005eff;
-                color: white;
-                border: none;
-                padding: 5px 10px;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-            .countdown {
-                font-size: 24px;
-                color: orange;
-                margin-top: 10px;
-            }
-            .slot-info {
-                font-size: 18px;
-                color: #333;
-                margin-top: 10px;
-            }
-            .expired-btn {
-                display: none;
-                margin-top: 15px;
-                padding: 10px 20px;
-                background-color: red;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-            .instructions {
-                margin-top: 30px;
-                color: #003366;
-            }
-            ul.do-donts {
-                text-align: left;
-                margin-top: 20px;
-            }
-            ul.do-donts li {
-                margin-bottom: 5px;
-                
-            }
-            .copy-btn.blink {
-                animation: blinkAnim 0.6s ease-in-out;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Technet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+        }
+        img.logo {
+            width: 200px;
+            margin-top: -60px;
+            margin-bottom: -60px;
+        }
+        h1 {
+            color: #1a53ff;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .label {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .value {
+            background-color: #eef4ff;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .copy-btn {
+            background-color: #005eff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .copy-btn.blink {
+            animation: blinkAnim 0.6s ease-in-out;
+        }
+        @keyframes blinkAnim {
+            0%, 100% { background-color: #005eff; color: white; }
+            50% { background-color: white; color: #005eff; border: 1px solid #005eff; }
+        }
+        .countdown {
+            font-size: 24px;
+            color: orange;
+            margin-top: 10px;
+        }
+        .slot-info {
+            font-size: 18px;
+            color: #333;
+            margin-top: 10px;
+        }
+        .expired-btn {
+            display: none;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .instructions {
+            margin-top: 30px;
+            color: #003366;
+        }
+        ul.do-donts {
+            text-align: left;
+            margin-top: 20px;
+        }
+        ul.do-donts li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <img src="aws_logo_image.png" alt="AWS Logo" class="logo">
+    <div class="container">
+        <h1>Cloud Technet</h1>
+        <h2>AWS Lab Practice Portal</h2>
 
-            @keyframes blinkAnim {
-                0%, 100% { background-color: #005eff; }
-                50% { background-color: #ffffff; color: #005eff; }
-            }
-
-        </style>
-    </head>
-    <body>
-        <img src="aws_logo_image.png" alt="AWS Logo" class="logo">
-        <div class="container">
-            <h1>Cloud Technet</h1>
-            <h2>AWS Lab Practice Portal</h2>
-            <div class="label">AWS Lab Console Link:</div>
-            <div class="value">
-                <span id="labLink">https://975049905218.signin.aws.amazon.com/console?region=us-east-1</span>
-                <button class="copy-btn" onclick="copyText('labLink')">Copy</button>
-            </div>
-
-            <div class="label">Username:</div>
-            <div class="value">
-                <span id="username">cloud@123</span>
-                <button class="copy-btn" onclick="copyText('username')">Copy</button>
-            </div>
-
-            <div class="label">Password:</div>
-            <div class="value">
-                <span id="password">welcome@123</span>
-               <button class="copy-btn" onclick="copyText('password')">Copy</button>
-            </div>
-
-            <div class="label">This session will expire in:</div>
-            <div class="countdown" id="timer">Loading...</div>
-            <div class="slot-info" id="slotInfo"></div>
-            <button class="expired-btn" id="expiredBtn" onclick="goToThankYou()">Session Expired</button>
-            <div class="instructions">
-                <h3>Lab Instructions</h3>
-                <p>Follow the steps mentioned in your lab manual. Complete the exercises before the timer ends.</p>
-                <ul class="do-donts">
-                    <li>✅ Do not refresh the page to reset the timer.</li>
-                    <li>✅ Timer is based on the lab's global start and end time — not user entry time.</li>
-                    <li>❌ Do not open in multiple browsers or devices to reset the session.</li>
-                    <li>✅ Use lab credentials and links only during valid slot periods.</li>
-                    <li>❌ Avoid browser extensions/scripts to manipulate the timer or session.</li>
-                </ul>
-            </div>
+        <div class="label">AWS Lab Console Link:</div>
+        <div class="value">
+            <span id="labLink">https://975049905218.signin.aws.amazon.com/console?region=us-east-1</span>
+            <button class="copy-btn" onclick="copyText('labLink', this)">Copy</button>
         </div>
 
-        <script>
+        <div class="label">Username:</div>
+        <div class="value">
+            <span id="username">cloud@123</span>
+            <button class="copy-btn" onclick="copyText('username', this)">Copy</button>
+        </div>
 
-           // Global lab timing tracker based on server slot schedule
-            function getCurrentSlot() {
-                const now = new Date();
-               const dayStart = new Date(now);
-                dayStart.setHours(10, 0, 0, 0); // First slot at 10 AM
-                for (let i = 0; i < 3; i++) {
-                    const slotStart = new Date(dayStart.getTime() + i * (3.5 * 60 * 60 * 1000));
-                    const slotEnd = new Date(slotStart.getTime() + 3 * 60 * 60 * 1000);
-                    if (now >= slotStart && now <= slotEnd) {
-                        return { start: slotStart, end: slotEnd, slotNumber: i + 1 };
-                    }
+        <div class="label">Password:</div>
+        <div class="value">
+            <span id="password">welcome@123</span>
+            <button class="copy-btn" onclick="copyText('password', this)">Copy</button>
+        </div>
+
+        <div class="label">This session will expire in:</div>
+        <div class="countdown" id="timer">Loading...</div>
+        <div class="slot-info" id="slotInfo"></div>
+        <button class="expired-btn" id="expiredBtn" onclick="goToThankYou()">Session Expired</button>
+
+        <div class="instructions">
+            <h3>Lab Instructions</h3>
+            <p>Follow the steps mentioned in your lab manual. Complete the exercises before the timer ends.</p>
+            <ul class="do-donts">
+                <li>✅ Do not refresh the page to reset the timer.</li>
+                <li>✅ Timer is based on the lab's global start and end time — not user entry time.</li>
+                <li>❌ Do not open in multiple browsers or devices to reset the session.</li>
+                <li>✅ Use lab credentials and links only during valid slot periods.</li>
+                <li>❌ Avoid browser extensions/scripts to manipulate the timer or session.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function copyText(id, btn) {
+            const text = document.getElementById(id).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.classList.add("blink");
+                setTimeout(() => btn.classList.remove("blink"), 600);
+            });
+        }
+
+        function goToThankYou() {
+            window.location.href = "thankyou.html";
+        }
+
+        function getCurrentSlot() {
+            const now = new Date();
+            const dayStart = new Date(now);
+            dayStart.setHours(10, 0, 0, 0); // First slot at 10 AM
+            for (let i = 0; i < 3; i++) {
+                const slotStart = new Date(dayStart.getTime() + i * (3.5 * 60 * 60 * 1000));
+                const slotEnd = new Date(slotStart.getTime() + 3 * 60 * 60 * 1000);
+                if (now >= slotStart && now <= slotEnd) {
+                    return { start: slotStart, end: slotEnd, slotNumber: i + 1 };
                 }
-                return null;
             }
-            const slot = getCurrentSlot();
-            const timerElement = document.getElementById("timer");
-            const slotInfo = document.getElementById("slotInfo");
-            const expiredBtn = document.getElementById("expiredBtn");
+            return null;
+        }
 
-            // Save the current slot's end time in localStorage so it persists on reload
-            if (slot) {
-               localStorage.setItem("labEndTime", slot.end.getTime());
-                localStorage.setItem("labSlotNumber", slot.slotNumber);
+        const slot = getCurrentSlot();
+        const timerElement = document.getElementById("timer");
+        const slotInfo = document.getElementById("slotInfo");
+        const expiredBtn = document.getElementById("expiredBtn");
+
+        if (slot) {
+            localStorage.setItem("labEndTime", slot.end.getTime());
+            localStorage.setItem("labSlotNumber", slot.slotNumber);
+        }
+
+        function updateTimer() {
+            const now = new Date();
+            const end = parseInt(localStorage.getItem("labEndTime"));
+            const slotNum = localStorage.getItem("labSlotNumber");
+
+            if (!end || !slotNum || now > end) {
+                timerElement.textContent = "00m 00s";
+                slotInfo.textContent = "";
+                expiredBtn.style.display = "inline-block";
+                return;
             }
 
-            function updateTimer() {
-                const now = new Date();
-                const end = parseInt(localStorage.getItem("labEndTime"));
-                const slotNum = localStorage.getItem("labSlotNumber");
-                if (!end || !slotNum || now > end) {
-                    timerElement.textContent = "00m 00s";
-                    slotInfo.textContent = "";
-                    expiredBtn.style.display = "inline-block";
-                    return;
-                }
-
-                const remaining = Math.floor((end - now) / 1000);
-                if (remaining > 0) {
-                    const mins = Math.floor(remaining / 60);
-                    const secs = remaining % 60;
-                    timerElement.textContent = `${mins}m ${secs}s`;
-                    slotInfo.textContent = `Currently in Slot ${slotNum}`;
-                    if (remaining === 300) alert("⚠️ Lab session will end in 5 minutes. Please save your work.");
-                    setTimeout(updateTimer, 1000);
-                }
-                else{
-                    timerElement.textContent = "00m 00s";
-                    expiredBtn.style.display = "inline-block";
-                }
+            const remaining = Math.floor((end - now) / 1000);
+            if (remaining > 0) {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                timerElement.textContent = `${mins}m ${secs}s`;
+                slotInfo.textContent = `Currently in Slot ${slotNum}`;
+                if (remaining === 300) alert("⚠️ Lab session will end in 5 minutes. Please save your work.");
+                setTimeout(updateTimer, 1000);
+            } else {
+                timerElement.textContent = "00m 00s";
+                expiredBtn.style.display = "inline-block";
             }
-            window.onload = () => {
-                updateTimer();
-            };
-        </script>
-    </body>
+        }
+
+        window.onload = () => {
+            updateTimer();
+        };
+    </script>
+</body>
 </html>
