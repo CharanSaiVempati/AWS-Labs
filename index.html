@@ -112,7 +112,7 @@
             <button class="copy-btn" onclick="copyText('password', this)">Copy</button>
         </div>
 
-        <div class="label">This session will expire in:</div>
+        <div class="label">This session will expire within "3 hours"</div>
         <div class="countdown" id="timer">Loading...</div>
         <div class="slot-info" id="slotInfo"></div>
         <button class="expired-btn" id="expiredBtn" onclick="goToThankYou()">Session Expired</button>
@@ -148,7 +148,7 @@
             const dayStart = new Date(now);
             dayStart.setHours(10, 0, 0, 0); // First slot at 10 AM
             for (let i = 0; i < 3; i++) {
-                const slotStart = new Date(dayStart.getTime() + i * (3.5 * 60 * 60 * 1000));
+                const slotStart = new Date(dayStart.getTime() + i * (3 * 60 * 60 * 1000));
                 const slotEnd = new Date(slotStart.getTime() + 3 * 60 * 60 * 1000);
                 if (now >= slotStart && now <= slotEnd) {
                     return { start: slotStart, end: slotEnd, slotNumber: i + 1 };
