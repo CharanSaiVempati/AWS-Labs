@@ -151,7 +151,7 @@
         function getCurrentSlot() {
             const now = new Date();
             const dayStart = new Date(now);
-            dayStart.setHours(10, 0, 0, 0); // First slot at 10 AM
+            dayStart.setHours(9, 0, 0, 0); // First slot at 10 AM
             for (let i = 0; i < 4; i++) {
                 const slotStart = new Date(dayStart.getTime() + i * (3 * 60 * 60 * 1000));
                 const slotEnd = new Date(slotStart.getTime() + 3 * 60 * 60 * 1000);
